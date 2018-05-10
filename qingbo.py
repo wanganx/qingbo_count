@@ -67,7 +67,7 @@ def s_get(url,params=None,headers=None):
             time.sleep(3)
 
 
-predict_model = joblib.load('learn_model/ittle_num.svm')
+predict_model = joblib.load('learn_model/little_num.svm')
 
 #读取图片文件并切割文字
 def get_num_img(img_path):
