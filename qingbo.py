@@ -70,7 +70,7 @@ def s_get(url,params=None,headers=None):
             time.sleep(3)
 
 
-predict_model = joblib.load('little_num.svm')
+predict_model = joblib.load('learn_model/ittle_num.svm')
 
 def get_num_img(img_path):
     img = plt.imread(img_path).mean(axis=2)
