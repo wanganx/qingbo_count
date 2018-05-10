@@ -46,7 +46,8 @@ proxy_handler = {
 
 def get_a_proxy_dict_for_requests():
     return proxy_handler
-
+if not os.path.exists('cookie'):
+    os.mkdir('cookie')
 cookie_path = 'cookie/qingbo_cookie.dat'
 s = requests.Session()
 def s_get(url,params=None,headers=None):
