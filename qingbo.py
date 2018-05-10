@@ -241,7 +241,7 @@ def get_write_one_page(search_word,startTime,endTime,page):
             print (official_accounts,title,read_num,thump_up_num,date)
             f.write(official_accounts+'$'+title+'$'+read_num+'$'+thump_up_num+'$'+date+'\n')
 
-def get_and_write_file(search_word, start_time, end_time):
+def get_and_write_file(search_word, start_time, end_time,pages):
     startTime_ = datetime.datetime.strptime(start_time, '%Y-%m-%d')
     endTime_ = datetime.datetime.strptime(end_time, '%Y-%m-%d')
     while startTime_ <= endTime_:
@@ -249,7 +249,7 @@ def get_and_write_file(search_word, start_time, end_time):
         endTime = startTime
         startTime_ += datetime.timedelta(days=1)
         print('++++++++++++++' + startTime + '+++++++++++++')
-        for page in range(1, 10):
+        for page in range(1,pages+1):
             print('---------第' + str(page) + '页--------')
             try:
                 get_write_one_page(search_word, startTime, endTime, page)
@@ -273,9 +273,11 @@ def to_excel(file_path):
 
 
 if __name__ == '__main__':
-    out_file = 'data/weixin_count29-n.csv'
+    out_file = 'data/test.csv'
     # out_file = 'data/test.csv'
     search_word = '复仇者联盟'
     start_time = '2018-05-08'
-    end_time = '2018-05-09'
-    get_and_write_file(search_word,start_time,end_time)
+    end_time = '2018-05-08'
+    #每查询一次的最大页数（正常用户下最少1页最大9页）
+    pages = 9
+    get_and_write_file(search_word,start_time,end_time,pages)
