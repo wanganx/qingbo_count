@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-from lxml import etree
 import json
 import time
 import requests
@@ -9,8 +8,6 @@ import datetime
 import os
 import codecs
 import uuid
-import re
-from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
 from selenium import webdriver
@@ -72,6 +69,7 @@ def s_get(url,params=None,headers=None):
 
 predict_model = joblib.load('learn_model/ittle_num.svm')
 
+#读取图片文件并切割文字
 def get_num_img(img_path):
     img = plt.imread(img_path).mean(axis=2)
     test_list = []
@@ -117,6 +115,7 @@ def get_num_img(img_path):
         start = start + i
     return test_list
 
+#通过url 获取识别图片上的数字
 def get_num_for_img(url):
     if url == '/query/drawcaptcha?num=MQTBBDXSKJwqO0O0OiO0O0On':
         return '10W+'
@@ -134,6 +133,7 @@ def get_num_for_img(url):
     os.remove(file_path)
     return ''.join(x)
 
+#清博账号登录以及保存cookie
 class Qingbo():
     url = 'http://www.gsdata.cn//member/login'
 
@@ -189,6 +189,7 @@ class Qingbo():
         # except Exception,e:
         #     print e
 
+#获取一页信息并保存下来
 def get_write_one_page(search_word,startTime,endTime,page):
     url = 'http://www.gsdata.cn/query/ajax_arc'
     params = {
@@ -264,10 +265,11 @@ def get_and_write_file(search_word, start_time, end_time):
                     print(e)
                     break
             time.sleep(3)
-
-    big_df = pd.read_csv(out_file, sep='$', header=None, engine='python', encoding='utf8')
+            to_excel(out_file)
+def to_excel(file_path):
+    big_df = pd.read_csv(file_path, sep='$', header=None, engine='python', encoding='utf8')
     big_df.columns = ['公众号', '文章名', '阅读量', '点赞数', '日期']
-    big_df.to_excel(out_file.rsplit('.', 1)[0] + '.xlsx', index=False, encoding='utf8')
+    big_df.to_excel(file_path.rsplit('.', 1)[0] + '.xlsx', index=False, encoding='utf8')
 
 
 if __name__ == '__main__':
