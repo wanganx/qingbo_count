@@ -21,28 +21,7 @@ import bs4
 # sys.setdefaultencoding('utf8')
 # from Common.proxy_manager import get_a_proxy_dict_for_requests
 
-# 代理服务器
-proxy_host = "proxy.abuyun.com"
-proxy_port = "9020"
 
-# 代理隧道验证信息
-proxy_user = "H21OAALA4NOK0K0D"
-proxy_pass = "45BDAA08611DBFCF"
-
-proxy_meta = "http://%(user)s:%(pass)s@%(host)s:%(port)s" % {
-    "host": proxy_host,
-    "port": proxy_port,
-    "user": proxy_user,
-    "pass": proxy_pass,
-}
-
-proxy_handler = {
-    "http": proxy_meta,
-    "https": proxy_meta,
-}
-
-def get_a_proxy_dict_for_requests():
-    return proxy_handler
 if not os.path.exists('cookie'):
     os.mkdir('cookie')
 cookie_path = 'cookie/qingbo_cookie.dat'
